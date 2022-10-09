@@ -1,5 +1,6 @@
 package com.github.example.springkafka.producer.controller;
 
+import com.github.example.springkafka.common.dto.EmployeeDto;
 import com.github.example.springkafka.producer.kafka.EmployeeProducer;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -12,15 +13,15 @@ public class ProducerController {
 
     private final EmployeeProducer producer;
 
-    @PostMapping("{name}")
-    public ResponseEntity<String> insert(@PathVariable String name) {
-        producer.insert(name);
+    @PostMapping
+    public ResponseEntity<String> insert(@RequestBody EmployeeDto employeeDto) {
+        producer.insert(employeeDto);
         return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("{name}")
-    public ResponseEntity<String> delete(@PathVariable String name) {
-        producer.delete(name);
+    @DeleteMapping
+    public ResponseEntity<String> delete(@RequestBody EmployeeDto employeeDto) {
+        producer.delete(employeeDto);
         return ResponseEntity.ok().build();
     }
 }

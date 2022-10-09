@@ -1,6 +1,7 @@
 package com.github.example.springkafka.consumer.service;
 
-import com.github.example.springkafka.consumer.common.Employee;
+import com.github.example.springkafka.common.dto.EmployeeDto;
+import com.github.example.springkafka.consumer.model.Employee;
 import com.github.example.springkafka.consumer.repository.EmployeeRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,13 +17,14 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public void insert(String name) {
+    public void insert(EmployeeDto employeeDto) {
         var employee = new Employee();
-        employee.setName(name);
+        employee.setName(employeeDto.name());
+        employee.setDob(employeeDto.dob());
         employeeRepository.save(employee);
     }
 
-    public void delete(String name) {
-        employeeRepository.deleteByName(name);
+    public void delete(EmployeeDto employeeDto) {
+        employeeRepository.deleteByName(employeeDto.name());
     }
 }

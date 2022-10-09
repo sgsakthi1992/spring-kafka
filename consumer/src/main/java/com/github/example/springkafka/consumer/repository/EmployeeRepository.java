@@ -1,6 +1,6 @@
 package com.github.example.springkafka.consumer.repository;
 
-import com.github.example.springkafka.consumer.common.Employee;
+import com.github.example.springkafka.consumer.model.Employee;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface EmployeeRepository extends JpaRepository<Employee, Long> {

@@ -1,6 +1,6 @@
 package com.github.example.springkafka.consumer.controller;
 
-import com.github.example.springkafka.consumer.common.Employee;
+import com.github.example.springkafka.consumer.model.Employee;
 import com.github.example.springkafka.consumer.service.EmployeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,6 +1,7 @@
 package com.github.example.springkafka.producer.kafka;
 
 import com.github.example.springkafka.common.KafkaConfig;
+import com.github.example.springkafka.common.dto.EmployeeDto;
 import lombok.AllArgsConstructor;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -12,10 +13,10 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 @AllArgsConstructor
 public class EmployeeProducer {
 
-    private final KafkaTemplate<String, String> kafka;
+    private final KafkaTemplate<String, EmployeeDto> kafka;
 
-    public void insert(String name) {
-        var record = new ProducerRecord<>(KafkaConfig.EMPLOYEE_TOPIC, name, name);
+    public void insert(EmployeeDto employeeDto) {
+        var record = new ProducerRecord<>(KafkaConfig.EMPLOYEE_TOPIC, employeeDto.name(), employeeDto);
         record.headers().add(KafkaConfig.OPERATION, KafkaConfig.INSERT.getBytes());
         var future = kafka.send(record);
         future.addCallback(new ListenableFutureCallback<>() {
@@ -25,15 +26,15 @@ public class EmployeeProducer {
             }
 
             @Override
-            public void onSuccess(SendResult<String, String> result) {
+            public void onSuccess(SendResult<String, EmployeeDto> result) {
                 System.out.println("Success");
             }
         });
     }
 
-    public void delete(String name) {
-        var record = new ProducerRecord<>(KafkaConfig.EMPLOYEE_TOPIC, name, name);
-        record.headers().add(KafkaConfig.OPERATION, KafkaConfig.INSERT.getBytes());
+    public void delete(EmployeeDto employeeDto) {
+        var record = new ProducerRecord<>(KafkaConfig.EMPLOYEE_TOPIC, employeeDto.name(), employeeDto);
+        record.headers().add(KafkaConfig.OPERATION, KafkaConfig.DELETE.getBytes());
         var future = kafka.send(record);
         future.addCallback(new ListenableFutureCallback<>() {
             @Override
@@ -42,7 +43,7 @@ public class EmployeeProducer {
             }
 
             @Override
-            public void onSuccess(SendResult<String, String> result) {
+            public void onSuccess(SendResult<String, EmployeeDto> result) {
                 System.out.println("Success");
             }
         });

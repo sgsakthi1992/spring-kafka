@@ -1,4 +1,4 @@
-package com.github.example.springkafka.consumer.common;
+package com.github.example.springkafka.consumer.model;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +7,7 @@ import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -20,6 +21,7 @@ public class Employee {
     private Long id;
     @Column(unique = true)
     private String name;
+    private LocalDate dob;
 
     @Override
     public boolean equals(Object o) {
